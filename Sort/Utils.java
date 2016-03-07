@@ -27,18 +27,36 @@ public abstract class Utils {
     }
 
     public static void print(int[] arr) {
+        print(arr, "");
+    }
+
+    public static void print(int[] arr, String separator) {
         for (int i = 0; i < arr.length; i++) {
-            System.out.print(arr[i]);
+            System.out.print(arr[i] + separator);
+        }
+        System.out.println();
+    }
+
+    public static void print(int[] arr, String separator, int mark) {
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i] + separator);
+            if(i == mark-1) {
+                System.out.print("|" + separator);
+            }
         }
         System.out.println();
     }
 
     public static void result(int[] arr) {
+        result(arr, "");
+    }
+
+    public static void result(int[] arr, String separator) {
         for (int i = 0; i < arr.length; i++) {
             System.out.print("-");
         }
         System.out.println();
-        print(arr);
+        print(arr, separator);
     }
 
 }

@@ -1,3 +1,6 @@
+// Best Time Complexity: O(n)
+// Worst TIme Complexity: O(nlog^2 n)
+
 public class ShellSort {
 
     public static void sort(int[] arr) {

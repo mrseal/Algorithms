@@ -40,11 +40,15 @@ public abstract class Utils {
     public static void print(int[] arr, String separator, int mark) {
         for (int i = 0; i < arr.length; i++) {
             System.out.print(arr[i] + separator);
-            if(i == mark-1) {
+            if(i == mark) {
                 System.out.print("|" + separator);
             }
         }
         System.out.println();
+    }
+
+    public static void line() {
+        System.out.println("--------------");
     }
 
     public static void result(int[] arr) {

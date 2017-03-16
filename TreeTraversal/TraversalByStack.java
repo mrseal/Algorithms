@@ -44,13 +44,20 @@ public abstract class TraversalByStack {
         final Stack<TreeNode<T>> stack = new Stack<>();
 
         TreeNode<T> c = root;
+        TreeNode<T> lastVisit = c;
         while (c != null || !stack.isEmpty()) {
             if (c != null) {
                 stack.push(c);
                 c = c.getLeft();
             } else {
-                c = stack.pop();
-                c = c.getRight();
+                TreeNode<T> peek = stack.peek();
+                if (peek.getRight() == null || peek.getRight() == lastVisit) {
+                    peek = stack.pop();
+                    result.add(peek.getValue());
+                    lastVisit = peek;
+                } else {
+                    c = peek.getRight();
+                }
             }
         }
         return result;

@@ -47,6 +47,7 @@ public class TexasHoldem {
         print(onePair);
         final Hands highHand = new Hands(new Poker[] { h10, d14, h9, h3, s12 });
         print(highHand);
+
     }
 
     public static List<Poker> prepareDeck() {

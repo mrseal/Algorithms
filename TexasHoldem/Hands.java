@@ -3,15 +3,23 @@ import java.util.Arrays;
 public class Hands {
 
     Poker[] pokers;
-    Poker[] ordered;
+    Poker[] sorted;
+    Rank rank;
 
     public Hands(final Poker[] pokers) {
         this.pokers = pokers;
-        ordered = Arrays.copyOf(pokers, pokers.length);
-        Arrays.sort(ordered);
+        sorted = Arrays.copyOf(pokers, pokers.length);
+        Arrays.sort(sorted);
     }
 
     public Rank getRank() {
+        if (rank == null) {
+            rank = calculateRank();
+        }
+        return rank;
+    }
+
+    private Rank calculateRank() {
         final Poker[] p = Arrays.copyOf(pokers, pokers.length);
         Arrays.sort(p);
 
@@ -25,7 +33,7 @@ public class Hands {
 
         switch (flushOrStraight) {
         case 3: {
-            if (ordered[0].getNum() == 14) {
+            if (sorted[0].getNum() == 14) {
                 return Rank.ROYAL_FLUSH;
             } else {
                 return Rank.STRAIGHT_FLUSH;
@@ -38,9 +46,9 @@ public class Hands {
         }
 
         int duplicates = 0;
-        for (int i = 0; i < ordered.length - 1; i++) {
-            for (int j = i + 1; j < ordered.length; j++) {
-                if (ordered[i].getNum() == ordered[j].getNum()) {
+        for (int i = 0; i < sorted.length - 1; i++) {
+            for (int j = i + 1; j < sorted.length; j++) {
+                if (sorted[i].getNum() == sorted[j].getNum()) {
                     duplicates++;
                 }
             }
@@ -75,8 +83,8 @@ public class Hands {
     }
 
     private boolean isStraight() {
-        for (int i = 1; i < ordered.length; i++) {
-            if (ordered[i - 1].getNum() - ordered[i].getNum() != 1) {
+        for (int i = 1; i < sorted.length; i++) {
+            if (sorted[i - 1].getNum() - sorted[i].getNum() != 1) {
                 return false;
             }
         }

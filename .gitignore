@@ -36,3 +36,4 @@ sdk-config-cache-non-cdi/transaction.log
 #idea
 .idea
 *.iml
+/bin/

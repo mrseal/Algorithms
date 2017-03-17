@@ -31,14 +31,14 @@ public class TexasHoldem {
         print(royalFlush);
         final Hands straightFlush = new Hands(new Poker[] { h13, h10, h12, h9, h11 });
         print(straightFlush);
-        final Hands flush = new Hands(new Poker[] { h13, h10, h3, h9, h11 });
-        print(flush);
-        final Hands straight = new Hands(new Poker[] { h13, c10, h12, h14, h11 });
-        print(straight);
         final Hands fourOfAKind = new Hands(new Poker[] { h14, d14, h12, c14, s14 });
         print(fourOfAKind);
         final Hands fullHouse = new Hands(new Poker[] { h14, d14, h12, c14, s12 });
         print(fullHouse);
+        final Hands flush = new Hands(new Poker[] { h13, h10, h3, h9, h11 });
+        print(flush);
+        final Hands straight = new Hands(new Poker[] { h13, c10, h12, h14, h11 });
+        print(straight);
         final Hands threeOfAKind = new Hands(new Poker[] { h14, d14, h3, c14, s12 });
         print(threeOfAKind);
         final Hands twoPairs = new Hands(new Poker[] { h10, d14, c10, c14, s12 });
@@ -65,6 +65,6 @@ public class TexasHoldem {
     }
 
     private static void print(final Hands hands) {
-        System.out.printf("%-20s %s\n", hands.getRank(), hands);
+        System.out.printf("(%2s)  %-16s %s\n", hands.getRank().getValue(), hands.getRank(), hands);
     }
 }

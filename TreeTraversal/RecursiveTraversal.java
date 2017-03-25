@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class TraversalByRecursive {
+public abstract class RecursiveTraversal {
 
     public static <T> List<T> preorderTraversal(final TreeNode<T> root) {
         final List<T> result = new ArrayList<>();

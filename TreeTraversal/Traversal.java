@@ -1,8 +1,9 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
-public abstract class TraversalByStack {
+public abstract class Traversal {
 
     public static <T> List<T> preorderTraversal(final TreeNode<T> root) {
         final List<T> result = new ArrayList<>();
@@ -63,4 +64,21 @@ public abstract class TraversalByStack {
         return result;
     }
 
+    public static <T> List<T> levelTraversal(final TreeNode<T> root) {
+        final List<T> result = new ArrayList<>();
+        final LinkedList<TreeNode<T>> queue = new LinkedList<>();
+        queue.addLast(root);
+        TreeNode<T> c;
+        while (!queue.isEmpty()) {
+            c = queue.pollFirst();
+            result.add(c.getValue());
+            if (c.getLeft() != null) {
+                queue.addLast(c.getLeft());
+            }
+            if (c.getRight() != null) {
+                queue.addLast(c.getRight());
+            }
+        }
+        return result;
+    }
 }

@@ -1,40 +1,43 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Scanner;
+import java.util.Set;
 
 public class Calculate24 {
 
-    final static Scanner scanner = new Scanner(System.in);
-
-    private static List<Value> init() {
-        final List<Value> nums = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            nums.add(new Value(scanner.nextFloat()));
+    public static String calculate(final int a, final int b, final int c, final int d) {
+        final List<Value> input = Arrays.asList(new Value(a), new Value(b), new Value(c), new Value(d));
+        final Set<Value> allCalcs = new HashSet<>(getAllCalculations(input));
+        final StringBuilder result = new StringBuilder();
+        for (final Value calc : allCalcs) {
+            if (calc.getValue() > 23.99 && calc.getValue() < 24.01) {
+                result.append(calc.getFormula()).append("\n");
+            }
         }
-        return nums;
+        return result.toString();
     }
 
-    private static List<Value> values(final List<Value> list) {
-
+    private static List<Value> getAllCalculations(final List<Value> list) {
         final List<Value> values = new ArrayList<>();
-
         if (list.size() == 1) {
             values.add(list.get(0));
         } else {
             for (int i = 0; i < list.size(); i++) {
                 final List<Value> temp = new ArrayList<>(list);
                 temp.remove(i);
-                final List<Value> aList = values(temp);
-                final Float bValue = list.get(i).getValue();
+                final List<Value> aList = getAllCalculations(temp);
+                final double bValue = list.get(i).getValue();
                 final String bFormula = list.get(i).getFormula();
                 for (final Value a : aList) {
-                    final Float aValue = a.getValue();
+                    final double aValue = a.getValue();
                     final String aFormula = a.getFormula();
                     values.add(new Value(aValue + bValue, "(" + aFormula + "+" + bFormula + ")"));
                     values.add(new Value(aValue - bValue, "(" + aFormula + "-" + bFormula + ")"));
                     values.add(new Value(aValue * bValue, "(" + aFormula + "*" + bFormula + ")"));
                     values.add(new Value(aValue / bValue, "(" + aFormula + "/" + bFormula + ")"));
-                    values.add(new Value(bValue + aValue, "(" + bFormula + "+" + aFormula + ")"));
                     values.add(new Value(bValue - aValue, "(" + bFormula + "-" + aFormula + ")"));
-                    values.add(new Value(bValue * aValue, "(" + bFormula + "*" + aFormula + ")"));
                     values.add(new Value(bValue / aValue, "(" + bFormula + "/" + aFormula + ")"));
                 }
             }
@@ -43,46 +46,34 @@ public class Calculate24 {
     }
 
     public static void main(final String[] args) {
-
-        while (true) {
-            final List<Value> nums = init();
-            final List<Value> result = values(nums);
-
-            final Set<Value> uniquResult = new HashSet<>();
-            for (final Value value : result) {
-                //            System.out.println(value.getFormula() + "  " + value.getValue());
-                uniquResult.add(value);
-            }
-
-            //        System.out.println("Total Possibility: " + values(nums).size());
-
-            //        System.out.println("\n=========== 24 ============");
-            for (final Value value : uniquResult) {
-                if (value.getValue().floatValue() > 23.9 && value.getValue().floatValue() < 24.1) {
-                    System.out.println(value.getFormula() + "  " + value.getValue());
-                }
+        try (Scanner scanner = new Scanner(System.in)) {
+            while (true) {
+                final int a = scanner.nextInt();
+                final int b = scanner.nextInt();
+                final int c = scanner.nextInt();
+                final int d = scanner.nextInt();
+                System.out.println(calculate(a, b, c, d));
             }
         }
-
     }
 }
 
 class Value {
+
     String formula;
+    double value;
 
-    Float value;
-
-    Value(final Float value) {
+    Value(final double value) {
         this.value = value;
-        this.formula = String.valueOf(value);
+        formula = String.valueOf(value);
     }
 
-    Value(final Float value, final String formula) {
+    Value(final double value, final String formula) {
         this.value = value;
         this.formula = formula;
     }
 
-    Float getValue() {
+    double getValue() {
         return value;
     }
 
@@ -94,30 +85,36 @@ class Value {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((formula == null) ? 0 : formula.hashCode());
-        result = prime * result + ((value == null) ? 0 : value.hashCode());
+        result = prime * result + (formula == null ? 0 : formula.hashCode());
+        long temp;
+        temp = Double.doubleToLongBits(value);
+        result = prime * result + (int) (temp ^ temp >>> 32);
         return result;
     }
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         final Value other = (Value) obj;
         if (formula == null) {
-            if (other.formula != null)
+            if (other.formula != null) {
                 return false;
-        } else if (!formula.equals(other.formula))
+            }
+        } else if (!formula.equals(other.formula)) {
             return false;
-        if (value == null) {
-            if (other.value != null)
-                return false;
-        } else if (!value.equals(other.value))
+        }
+        if (Double.doubleToLongBits(value) != Double.doubleToLongBits(other.value)) {
             return false;
+        }
         return true;
     }
+
 }

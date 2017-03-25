@@ -2,15 +2,19 @@ public class Main {
 
     public static void main(final String[] args) {
         final TreeNode<String> root = prepareTree();
-        System.out.println("=== Via Recursive ===");
-        System.out.println("Preorder Traversal: " + TraversalByRecursive.preorderTraversal(root));
-        System.out.println("Inorder Traversal: " + TraversalByRecursive.inorderTraversal(root));
-        System.out.println("Postorder Traversal: " + TraversalByRecursive.postorderTraversal(root));
 
-        System.out.println("\n=== Via Stack ===");
-        System.out.println("Preorder Traversal: " + TraversalByStack.preorderTraversal(root));
-        System.out.println("Inorder Traversal: " + TraversalByStack.inorderTraversal(root));
-        System.out.println("Postorder Traversal: " + TraversalByStack.postorderTraversal(root));
+        System.out.println("=== Via Stack ===");
+        System.out.println("Preorder Traversal: " + Traversal.preorderTraversal(root));
+        System.out.println("Inorder Traversal: " + Traversal.inorderTraversal(root));
+        System.out.println("Postorder Traversal: " + Traversal.postorderTraversal(root));
+        System.out.println("Level Traversal: " + Traversal.levelTraversal(root));
+
+        System.out.println();
+        System.out.println("=== Via Recursive ===");
+        System.out.println("Preorder Traversal: " + RecursiveTraversal.preorderTraversal(root));
+        System.out.println("Inorder Traversal: " + RecursiveTraversal.inorderTraversal(root));
+        System.out.println("Postorder Traversal: " + RecursiveTraversal.postorderTraversal(root));
+
     }
 
     public static TreeNode<String> prepareTree() {
